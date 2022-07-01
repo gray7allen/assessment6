@@ -19,28 +19,50 @@ test('Title shows up when page loads', async () => {
     expect(displayed).toBe(true)
 })
 
-test('draw', async () => {
-    await drawFive(driver)
+test(' "Draw" button displays choices section', async () => {
+    await driver.findElement(By.id('draw')).click()
+    const choicesSection = await driver.findElement(By.id('choices'))
+    const displayed = await choicesSection.isDisplayed()
+    expect(displayed).toBe(true)
 })
 
-test('Add to duo', async () => {
-    await chooseBot(driver)
+test(' "Remove from Duo" button puts robot back into choices section', async () => {
+    await driver.findElement(By.id('draw')).click()
+    await driver.findElement(By.css('.bot-btn')).click()
+    const playerDuoSection = await driver.findElement(By.id('player-duo'))
+    const selectedRobotName = await driver.findElement(By.xpath('//div[@id="player-duo]/div/h3')).getText()
+    await driver.findElement(By.xpath('//button[text()="Remove from Duo"]')).click()
+    const returnedRobot = await driver.findElement(By.xpath('//div[@id="choices"]/div/h3[contains(text(), ' + selectedRobotName + ')]'))
+    const displayed = await returnedRobot.isDisplayed()
+    expect(displayed).toBe(true)
 })
 
-const drawFive = async (driver) => {
 
-    await driver.findElement(By.xpath('//button')).click()
-    const draw = await driver.findElement(By.xpath('//choices'))
+// My Tests ... did not work 
+//          my tests :c
 
-}
+// test('draw', async () => {
+//     await drawFive(driver)
+// })
 
-const chooseBot = async (driver) => {
+// test('Add to duo', async () => {
+//     await chooseBot(driver)
+// })
 
-    await driver.findElement(By.xpath('//button')).click()
-    const choose = await driver.findElement(By.xpath('//player-duo'))
-}
+// const drawFive = async (driver) => {
 
-module.exports = {
-    drawFive,
-    chooseBot
-}
+//     await driver.findElement(By.xpath('//button')).click()
+//     const draw = await driver.findElement(By.xpath('//choices'))
+
+// }
+
+// const chooseBot = async (driver) => {
+
+//     await driver.findElement(By.xpath('//button')).click()
+//     const choose = await driver.findElement(By.xpath('//player-duo'))
+// }
+
+// module.exports = {
+//     drawFive,
+//     chooseBot
+// }

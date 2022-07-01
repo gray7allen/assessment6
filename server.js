@@ -42,8 +42,8 @@ try {
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'))
 })
-
-app.get('/css', (req, res) => {
+// corrected from app.get /css to /styles
+app.get('/styles', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.css'))
 })
 
